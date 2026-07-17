@@ -1067,4 +1067,4 @@ function goToProductDetail(productId) {
 
 <!-- Feature Implementation: ui bảng theo dõi tồn kho admin -->
 
-<!-- Stage 1: Add Product Form & Image Upload UI -->
+<!-- Stage 2: Edit Modal Loaded Old Data from Server -->
