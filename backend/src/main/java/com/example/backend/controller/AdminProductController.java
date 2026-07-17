@@ -17,5 +17,11 @@ public class AdminProductController {
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponse>> createProduct(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(ApiResponse.success(productService.createProduct(request)));
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponse>> updateProduct(@PathVariable Long id, @RequestBody ProductRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(productService.updateProduct(id, request)));
     }
+}
+
 }
