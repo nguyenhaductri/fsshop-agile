@@ -18,7 +18,14 @@ public class AdminProductController {
     public ResponseEntity<ApiResponse<ProductResponse>> createProduct(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(ApiResponse.success(productService.createProduct(request)));
     
-    @PutMapping("/{id}")
+    @PutMapping("/{id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(ApiResponse.success("Xóa sản phẩm thành công", null));
+    }
+}
+")
     public ResponseEntity<ApiResponse<ProductResponse>> updateProduct(@PathVariable Long id, @RequestBody ProductRequest request) {
         return ResponseEntity.ok(ApiResponse.success(productService.updateProduct(id, request)));
     }
