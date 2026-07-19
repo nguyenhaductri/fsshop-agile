@@ -1066,5 +1066,3 @@ function goToProductDetail(productId) {
 <!-- Feature Implementation: ui load dữ liệu cũ vào form -->
 
 <!-- Feature Implementation: ui bảng theo dõi tồn kho admin -->
-
-<!-- Stage 2: Edit Modal Loaded Old Data from Server -->
