@@ -20,5 +20,11 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size) {
         return ResponseEntity.ok(ApiResponse.success(productService.getAllProducts(PageRequest.of(page, size))));
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponse>> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(productService.getProductById(id)));
     }
+}
+
 }
