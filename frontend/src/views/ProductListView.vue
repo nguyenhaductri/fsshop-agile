@@ -792,5 +792,3 @@ function calcDiscount(price, salePrice) {
 <!-- Feature Implementation: ui grid, thẻ sp, phân trang -->
 
 <!-- Feature Implementation: ui sidebar lọc (size, màu, giá) -->
-
-<!-- Stage 1: Product Grid & Pagination Controls -->
