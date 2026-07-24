@@ -722,4 +722,4 @@ function formatNotifTime(dateStr) {
 
 <!-- Feature Implementation: ui ô search có auto-suggest -->
 
-<!-- Version: 1.0 (Auth Only) -->
+<!-- Stage 2: Search with Auto-Suggest -->
