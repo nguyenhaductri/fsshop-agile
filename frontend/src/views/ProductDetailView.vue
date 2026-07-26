@@ -1308,4 +1308,4 @@ function formatDate(dateStr) {
 
 <!-- Feature Implementation: ui hiển thị đánh giá ct sp -->
 
-<!-- Stage 1: Product Detail View (Images & Info) -->
+<!-- Stage 2: Add to Cart Action with Toast Feedback -->
