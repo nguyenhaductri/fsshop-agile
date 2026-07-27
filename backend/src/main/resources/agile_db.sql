@@ -113,3 +113,33 @@ INSERT INTO dbo.product_variants (product_id, size, color, color_code, stock_qua
 (4, N'L', N'Rêu', N'#3F6212', 12, 420000, 1),
 (5, N'31', N'Đen', N'#000000', 25, 320000, 1);
 GO
+
+-- 6. CART & CART ITEMS
+CREATE TABLE dbo.cart (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL UNIQUE FOREIGN KEY REFERENCES dbo.users(id) ON DELETE CASCADE,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE dbo.cart_items (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    cart_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.cart(id) ON DELETE CASCADE,
+    product_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.products(id),
+    variant_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.product_variants(id),
+    quantity INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE(),
+    CONSTRAINT UQ_Cart_Variant UNIQUE(cart_id, variant_id)
+);
+GO
+
+INSERT INTO dbo.cart (user_id) VALUES (3), (4), (5);
+GO
+
+INSERT INTO dbo.cart_items (cart_id, product_id, variant_id, quantity) VALUES
+(1, 1, 2, 2),
+(1, 4, 7, 1),
+(2, 2, 4, 1);
+GO
