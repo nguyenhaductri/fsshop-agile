@@ -17,7 +17,16 @@ public class CartController {
     @GetMapping
     public ResponseEntity<ApiResponse<CartResponse>> getCart(@RequestParam Long userId) {
         return ResponseEntity.ok(ApiResponse.success(cartService.getCartByUserId(userId)));
+    
+    @PutMapping("/items/{itemId}")
+    public ResponseEntity<ApiResponse<CartResponse>> updateItemQuantity(
+            @RequestParam Long userId,
+            @PathVariable Long itemId,
+            @RequestParam int quantity) {
+        return ResponseEntity.ok(ApiResponse.success(cartService.updateItemQuantity(userId, itemId, quantity)));
     }
+}
+
 
     @PostMapping("/items")
     public ResponseEntity<ApiResponse<CartResponse>> addToCart(@RequestParam Long userId, @RequestBody AddToCartRequest request) {
