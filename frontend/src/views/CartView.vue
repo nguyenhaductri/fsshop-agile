@@ -460,5 +460,3 @@ function formatPrice(val) {
 </style>
 
 <!-- Feature Implementation: ui nút (+/-), tính tổng tiền -->
-
-<!-- Stage 1: Item Table & Subtotal Summary -->
