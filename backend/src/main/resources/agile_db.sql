@@ -143,3 +143,25 @@ INSERT INTO dbo.cart_items (cart_id, product_id, variant_id, quantity) VALUES
 (1, 4, 7, 1),
 (2, 2, 4, 1);
 GO
+
+-- 6.1 USER ADDRESS BOOK
+CREATE TABLE dbo.user_addresses (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.users(id) ON DELETE CASCADE,
+    receiver_name NVARCHAR(100) NOT NULL,
+    phone_number NVARCHAR(20) NOT NULL,
+    province NVARCHAR(100) NOT NULL,
+    district NVARCHAR(100) NOT NULL,
+    ward NVARCHAR(100) NOT NULL,
+    street_address NVARCHAR(255) NOT NULL,
+    is_default BIT DEFAULT 0,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+INSERT INTO dbo.user_addresses (user_id, receiver_name, phone_number, province, district, ward, street_address, is_default) VALUES
+(3, N'Ngọc Mai', N'0987654321', N'Hà Nội', N'Quận Cầu Giấy', N'Phường Dịch Vọng Hậu', N'Tòa Landmark 72, Đường Phạm Hùng', 1),
+(4, N'Nguyễn Hà Đức Trí', N'0912345678', N'Hồ Chí Minh', N'Quận 1', N'Phường Bến Nghé', N'123 Đường Lê Lợi', 1),
+(5, N'Phạm Gia Hưng (Ken Ko)', N'0977889900', N'Đà Nẵng', N'Quận Hải Châu', N'Phường Thạch Thang', N'456 Đường Bạch Đằng', 1);
+GO
