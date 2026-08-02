@@ -165,3 +165,56 @@ INSERT INTO dbo.user_addresses (user_id, receiver_name, phone_number, province, 
 (4, N'Nguyễn Hà Đức Trí', N'0912345678', N'Hồ Chí Minh', N'Quận 1', N'Phường Bến Nghé', N'123 Đường Lê Lợi', 1),
 (5, N'Phạm Gia Hưng (Ken Ko)', N'0977889900', N'Đà Nẵng', N'Quận Hải Châu', N'Phường Thạch Thang', N'456 Đường Bạch Đằng', 1);
 GO
+
+-- 7. ORDERS & ORDER ITEMS
+CREATE TABLE dbo.orders (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    order_code NVARCHAR(50) NOT NULL UNIQUE,
+    user_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.users(id),
+    total_amount DECIMAL(18,2) NOT NULL,
+    discount_amount DECIMAL(18,2) DEFAULT 0,
+    final_amount DECIMAL(18,2) NOT NULL,
+    receiver_name NVARCHAR(100) NOT NULL,
+    phone_number NVARCHAR(20) NOT NULL,
+    shipping_address NVARCHAR(500) NOT NULL,
+    payment_method NVARCHAR(50) NOT NULL DEFAULT 'COD',
+    payment_status NVARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    status NVARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    note NVARCHAR(500),
+    voucher_code NVARCHAR(50),
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE dbo.order_items (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    order_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.orders(id) ON DELETE CASCADE,
+    product_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.products(id),
+    variant_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.product_variants(id),
+    product_name NVARCHAR(200) NOT NULL,
+    size NVARCHAR(20) NOT NULL,
+    color NVARCHAR(50) NOT NULL,
+    price DECIMAL(18,2) NOT NULL,
+    quantity INT NOT NULL,
+    subtotal DECIMAL(18,2) NOT NULL
+);
+GO
+
+INSERT INTO dbo.orders (order_code, user_id, total_amount, discount_amount, final_amount, receiver_name, phone_number, shipping_address, payment_method, payment_status, status, note, created_at)
+VALUES
+(N'ORD-20260615-1001', 3, 189000, 0, 189000, N'Ngọc Mai', N'0987654321', N'Tòa Landmark 72, Đường Phạm Hùng, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội', N'COD', N'PAID', N'DELIVERED', N'Giao giờ hành chính', '2026-06-15 09:30:00'),
+(N'ORD-20260710-1002', 4, 299000, 0, 299000, N'Nguyễn Hà Đức Trí', N'0912345678', N'123 Đường Lê Lợi, Phường Bến Nghé, Quận 1, Hồ Chí Minh', N'VNPAY', N'PAID', N'DELIVERED', N'Gọi trước khi giao', '2026-07-10 14:15:00'),
+(N'ORD-20260805-1003', 5, 420000, 0, 420000, N'Phạm Gia Hưng (Ken Ko)', N'0977889900', N'456 Đường Bạch Đằng, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng', N'COD', N'PAID', N'DELIVERED', N'Giao hàng tận nơi', '2026-08-05 16:45:00'),
+(N'ORD-20260812-1004', 3, 378000, 0, 378000, N'Ngọc Mai', N'0987654321', N'Tòa Landmark 72, Đường Phạm Hùng, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội', N'COD', N'PENDING', N'CONFIRMED', N'Áo đẹp chuẩn size giúp mình', '2026-08-12 10:00:00'),
+(N'ORD-20260814-1005', 4, 350000, 0, 350000, N'Nguyễn Hà Đức Trí', N'0912345678', N'123 Đường Lê Lợi, Phường Bến Nghé, Quận 1, Hồ Chí Minh', N'MOMO', N'PENDING', N'SHIPPING', N'Giao nhanh giúp mình', '2026-08-14 11:30:00');
+GO
+
+INSERT INTO dbo.order_items (order_id, product_id, variant_id, product_name, size, color, price, quantity, subtotal)
+VALUES
+(1, 1, 2, N'Áo Thun Form Rộng Cotton FS01', N'L', N'Đen', 189000, 1, 189000),
+(2, 2, 4, N'Áo Sơ Mi Tay Dài Chống Nhăn FS02', N'XL', N'Trắng', 299000, 1, 299000),
+(3, 4, 7, N'Áo Khoác Bomber Kaki 2 Lớp FS04', N'L', N'Rêu', 420000, 1, 420000),
+(4, 1, 2, N'Áo Thun Form Rộng Cotton FS01', N'L', N'Đen', 189000, 2, 378000),
+(5, 3, 5, N'Quần Jean Nam Ống Đứng Co Giãn FS03', N'30', N'Xanh đậm', 350000, 1, 350000);
+GO
