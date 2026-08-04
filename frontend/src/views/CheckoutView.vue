@@ -1033,5 +1033,3 @@ function formatPrice(val) {
 <!-- Feature Implementation: ui review đơn, chọn thanh toán -->
 
 <!-- Feature Implementation: ui form địa chỉ, autocomplete -->
-
-<!-- Stage 1: Order Review & Payment Selection -->
