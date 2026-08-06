@@ -19,5 +19,11 @@ public class OrderController {
             @RequestParam Long userId,
             @RequestBody CreateOrderRequest request) {
         return ResponseEntity.ok(ApiResponse.success(orderService.createOrder(userId, request)));
+    
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ApiResponse<java.util.List<OrderResponse>>> getUserOrders(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponse.success(orderService.getOrdersByUserId(userId)));
     }
+}
+
 }
