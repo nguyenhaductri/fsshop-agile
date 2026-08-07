@@ -21,7 +21,13 @@ public class OrderController {
         return ResponseEntity.ok(ApiResponse.success(orderService.createOrder(userId, request)));
     
     @GetMapping("/user/{userId
-    @GetMapping("/{id}")
+    @GetMapping("/{id
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<ApiResponse<OrderResponse>> cancelOrder(@PathVariable Long id, @RequestParam(required = false) String reason) {
+        return ResponseEntity.ok(ApiResponse.success(orderService.cancelOrder(id, reason)));
+    }
+}
+")
     public ResponseEntity<ApiResponse<OrderResponse>> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success(orderService.getOrderById(id)));
     }

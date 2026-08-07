@@ -1179,4 +1179,4 @@ function formatDate(dateStr) {
 
 <!-- Feature Implementation: ui timeline trạng thái giao hàng -->
 
-<!-- Stage 1: Customer Orders List -->
+<!-- Stage 2: Cancel Order Feature -->
