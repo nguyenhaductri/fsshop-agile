@@ -218,3 +218,39 @@ VALUES
 (4, 1, 2, N'Áo Thun Form Rộng Cotton FS01', N'L', N'Đen', 189000, 2, 378000),
 (5, 3, 5, N'Quần Jean Nam Ống Đứng Co Giãn FS03', N'30', N'Xanh đậm', 350000, 1, 350000);
 GO
+
+-- 7.1 ORDER STATUS HISTORIES
+CREATE TABLE dbo.order_histories (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    order_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.orders(id) ON DELETE CASCADE,
+    status NVARCHAR(50) NOT NULL,
+    description NVARCHAR(500) NOT NULL,
+    created_by NVARCHAR(100),
+    created_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+INSERT INTO dbo.order_histories (order_id, status, description, created_by, created_at)
+VALUES
+(1, N'PENDING', N'Đơn hàng đã được tạo thành công trên hệ thống', N'Ngọc Mai', '2026-06-15 09:30:00'),
+(1, N'CONFIRMED', N'FS Shop đã duyệt đơn hàng và chuẩn bị đóng gói', N'Admin', '2026-06-15 10:00:00'),
+(1, N'SHIPPING', N'Đơn hàng đã bàn giao cho đơn vị vận chuyển GHN', N'Admin', '2026-06-15 14:00:00'),
+(1, N'DELIVERED', N'Giao hàng thành công tới người nhận', N'Shipper GHN', '2026-06-16 11:30:00'),
+
+(2, N'PENDING', N'Đơn hàng được đặt thành công', N'Nguyễn Hà Đức Trí', '2026-07-10 14:15:00'),
+(2, N'CONFIRMED', N'Đã duyệt đơn hàng', N'Admin', '2026-07-10 15:00:00'),
+(2, N'SHIPPING', N'Đang giao hàng', N'Admin', '2026-07-10 17:00:00'),
+(2, N'DELIVERED', N'Khách hàng đã nhận hàng', N'Shipper', '2026-07-11 16:20:00'),
+
+(3, N'PENDING', N'Đơn hàng được đặt thành công', N'Phạm Gia Hưng', '2026-08-05 16:45:00'),
+(3, N'CONFIRMED', N'Admin đã xác nhận đơn hàng', N'Admin', '2026-08-05 17:15:00'),
+(3, N'SHIPPING', N'Bàn giao shipper', N'Admin', '2026-08-06 08:30:00'),
+(3, N'DELIVERED', N'Giao hàng thành công', N'Shipper', '2026-08-07 10:00:00'),
+
+(4, N'PENDING', N'Đơn hàng chờ xác nhận', N'Ngọc Mai', '2026-08-12 10:00:00'),
+(4, N'CONFIRMED', N'Shop đã tiếp nhận và duyệt đơn hàng', N'Admin', '2026-08-12 11:30:00'),
+
+(5, N'PENDING', N'Đơn hàng chờ xác nhận', N'Nguyễn Hà Đức Trí', '2026-08-14 11:30:00'),
+(5, N'CONFIRMED', N'Đã duyệt đơn', N'Admin', '2026-08-14 13:00:00'),
+(5, N'SHIPPING', N'Đang trên đường giao tới bạn', N'Shipper', '2026-08-14 15:00:00');
+GO
