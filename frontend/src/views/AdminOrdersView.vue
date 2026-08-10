@@ -1152,5 +1152,3 @@ async function goToProductDetail(itemOrId) {
 </style>
 
 <!-- Feature Implementation: ui/api admin duyệt đơn -->
-
-<!-- Stage 1: Order Table & Approval -->

@@ -17,7 +17,13 @@ public class AdminOrderController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getAllOrders() {
         return ResponseEntity.ok(ApiResponse.success(orderService.getAllOrders()));
+    
+    @PutMapping("/{id}/shipping")
+    public ResponseEntity<ApiResponse<OrderResponse>> updateShippingStatus(@PathVariable Long id, @RequestParam String shippingStatus) {
+        return ResponseEntity.ok(ApiResponse.success(orderService.updateOrderStatus(id, shippingStatus)));
     }
+}
+
 
     @PutMapping("/{id}/status")
     public ResponseEntity<ApiResponse<OrderResponse>> updateStatus(@PathVariable Long id, @RequestParam String status) {
