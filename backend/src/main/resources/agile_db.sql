@@ -254,3 +254,42 @@ VALUES
 (5, N'CONFIRMED', N'Đã duyệt đơn', N'Admin', '2026-08-14 13:00:00'),
 (5, N'SHIPPING', N'Đang trên đường giao tới bạn', N'Shipper', '2026-08-14 15:00:00');
 GO
+
+-- 7.2 PRODUCT REVIEWS & REPLIES
+CREATE TABLE dbo.reviews (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.users(id),
+    product_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.products(id) ON DELETE CASCADE,
+    order_id BIGINT NULL FOREIGN KEY REFERENCES dbo.orders(id),
+    parent_id BIGINT FOREIGN KEY REFERENCES dbo.reviews(id),
+    reply_to_user_name NVARCHAR(100),
+    rating_stars INT NULL CHECK (rating_stars IS NULL OR (rating_stars >= 1 AND rating_stars <= 5)),
+    comment NVARCHAR(1000) NULL,
+    created_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE dbo.review_votes (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    review_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.reviews(id) ON DELETE CASCADE,
+    user_id BIGINT NOT NULL FOREIGN KEY REFERENCES dbo.users(id),
+    vote_type NVARCHAR(10) NOT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+    CONSTRAINT UQ_Review_User_Vote UNIQUE(review_id, user_id)
+);
+GO
+
+INSERT INTO dbo.reviews (user_id, product_id, order_id, parent_id, rating_stars, comment)
+VALUES
+(3, 1, 1, NULL, 5, N'Áo mặc rất thích, vải cotton dày dặn và mát mẻ! Sẽ tiếp tục ủng hộ shop.'),
+(2, 1, NULL, 1, NULL, N'Cảm ơn bạn Ngọc Mai đã tin tưởng và đánh giá 5 sao cho sản phẩm của FS SHOP ạ!'),
+(4, 2, 2, NULL, 5, N'Sơ mi vừa vặn, form áo rất chuẩn công sở!'),
+(5, 4, 3, NULL, 5, N'Áo khoác bomber kaki đẹp lắm ạ, dày dặn ấm áp!');
+GO
+
+INSERT INTO dbo.review_votes (review_id, user_id, vote_type)
+VALUES
+(1, 3, N'LIKE'),
+(1, 2, N'LIKE'),
+(3, 4, N'LIKE');
+GO
