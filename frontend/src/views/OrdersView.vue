@@ -1178,5 +1178,3 @@ function formatDate(dateStr) {
 <!-- Feature Implementation: ui chi tiết (sp, ship, giá) -->
 
 <!-- Feature Implementation: ui timeline trạng thái giao hàng -->
-
-<!-- Stage 3: Delivery Timeline Stepper -->
