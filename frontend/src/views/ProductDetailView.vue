@@ -1307,5 +1307,3 @@ function formatDate(dateStr) {
 <!-- Feature Implementation: ui form đánh giá (1-5 sao) -->
 
 <!-- Feature Implementation: ui hiển thị đánh giá ct sp -->
-
-<!-- Stage 2: Add to Cart Action with Toast Feedback -->
