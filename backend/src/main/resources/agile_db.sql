@@ -293,3 +293,31 @@ VALUES
 (1, 2, N'LIKE'),
 (3, 4, N'LIKE');
 GO
+
+-- 8. VOUCHERS / DISCOUNT CODES
+CREATE TABLE dbo.vouchers (
+    id BIGINT PRIMARY KEY,
+    code NVARCHAR(50) NOT NULL UNIQUE,
+    name NVARCHAR(100) NOT NULL,
+    description NVARCHAR(255),
+    discount_type NVARCHAR(20) NOT NULL DEFAULT 'PERCENT',
+    discount_value DECIMAL(18,2) NOT NULL,
+    min_order_amount DECIMAL(18,2) DEFAULT 0,
+    max_discount_amount DECIMAL(18,2),
+    usage_limit INT DEFAULT 100,
+    used_count INT DEFAULT 0,
+    start_date DATETIME,
+    end_date DATETIME,
+    is_public BIT DEFAULT 1,
+    status INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+INSERT INTO dbo.vouchers (id, code, name, description, discount_type, discount_value, min_order_amount, max_discount_amount, usage_limit, used_count, start_date, end_date, is_public, status)
+VALUES
+(1, N'GIAM50K', N'Giảm 50.000đ đơn từ 200k', N'Áp dụng cho mọi đơn hàng từ 200.000đ', N'FIXED', 50000, 200000, NULL, 100, 5, '2026-01-01', '2026-12-31', 1, 1),
+(2, N'WELCOME10', N'Giảm 10% cho khách mới', N'Giảm 10% tối đa 100.000đ cho đơn bất kỳ', N'PERCENT', 10, 0, 100000, 50, 3, '2026-01-01', '2026-12-31', 1, 1),
+(3, N'VIPSECRET', N'Giảm 100.000đ cho Đơn VIP (Bí Mật)', N'Mã ẩn riêng tư không hiển thị trong danh sách công khai', N'FIXED', 100000, 300000, NULL, 20, 2, '2026-01-01', '2026-12-31', 0, 1);
+GO
