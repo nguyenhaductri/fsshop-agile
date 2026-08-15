@@ -321,3 +321,22 @@ VALUES
 (2, N'WELCOME10', N'Giảm 10% cho khách mới', N'Giảm 10% tối đa 100.000đ cho đơn bất kỳ', N'PERCENT', 10, 0, 100000, 50, 3, '2026-01-01', '2026-12-31', 1, 1),
 (3, N'VIPSECRET', N'Giảm 100.000đ cho Đơn VIP (Bí Mật)', N'Mã ẩn riêng tư không hiển thị trong danh sách công khai', N'FIXED', 100000, 300000, NULL, 20, 2, '2026-01-01', '2026-12-31', 0, 1);
 GO
+
+-- 9. SYSTEM & USER NOTIFICATIONS
+CREATE TABLE dbo.notifications (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT FOREIGN KEY REFERENCES dbo.users(id) ON DELETE CASCADE,
+    title NVARCHAR(150) NOT NULL,
+    message NVARCHAR(500) NOT NULL,
+    type NVARCHAR(50) NOT NULL,
+    is_read BIT DEFAULT 0,
+    link NVARCHAR(255),
+    created_at DATETIME DEFAULT GETDATE()
+);
+GO
+
+INSERT INTO dbo.notifications (user_id, title, message, type, is_read, link)
+VALUES
+(3, N'🎉 Chào mừng bạn đến với FS Shop!', N'Cảm ơn bạn đã đăng ký tài khoản. Sử dụng mã WELCOME10 để được giảm 10% cho đơn hàng đầu tiên!', N'VOUCHER_NEW', 0, N'checkout'),
+(NULL, N'🎉 Voucher Mới Được Phát Hành!', N'FS Shop vừa cập nhật mã giảm giá GIAM50K giảm trực tiếp 50.000đ cho đơn từ 200k.', N'VOUCHER_NEW', 0, N'checkout');
+GO
