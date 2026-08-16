@@ -721,5 +721,3 @@ function formatNotifTime(dateStr) {
 </style>
 
 <!-- Feature Implementation: ui ô search có auto-suggest -->
-
-<!-- Stage 2: Search with Auto-Suggest -->
